@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GlobalVariableEntities>
+   <description></description>
+   <name>default</name>
+   <tag></tag>
+   <defaultProfile>true</defaultProfile>
+   <GlobalVariableEntity>
+      <description>employee information</description>
+      <initValue>[('name') : 'Default', ('salary') : 0, ('age') : 0]</initValue>
+      <name>employee</name>
+   </GlobalVariableEntity>
+   <GlobalVariableEntity>
+      <description>list of employees</description>
+      <initValue>[]</initValue>
+      <name>employeeList</name>
+   </GlobalVariableEntity>
+</GlobalVariableEntities>
