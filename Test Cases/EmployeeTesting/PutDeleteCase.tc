@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<TestCaseEntity>
-   <description>Test for Put and delete methods</description>
-   <name>PutDeleteCase</name>
-   <tag></tag>
-   <comment></comment>
-   <testCaseGuid>20be059c-2c50-4078-9266-394559c7e8fc</testCaseGuid>
-</TestCaseEntity>

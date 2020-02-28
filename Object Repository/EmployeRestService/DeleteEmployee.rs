@@ -16,12 +16,19 @@
    <httpBodyType>text</httpBodyType>
    <migratedVersion>5.4.1</migratedVersion>
    <restRequestMethod>DELETE</restRequestMethod>
-   <restUrl>http://dummy.restapiexample.com/api/v1/delete/2</restUrl>
+   <restUrl>http://dummy.restapiexample.com/api/v1/delete/${employeeID}</restUrl>
    <serviceType>RESTful</serviceType>
    <soapBody></soapBody>
    <soapHeader></soapHeader>
    <soapRequestMethod></soapRequestMethod>
    <soapServiceFunction></soapServiceFunction>
+   <variables>
+      <defaultValue>GlobalVariable.employee</defaultValue>
+      <description>last employee created</description>
+      <id>2707a6cb-54b6-4648-b0af-2a620d8b2228</id>
+      <masked>false</masked>
+      <name>employee</name>
+   </variables>
    <verificationScript>import static org.assertj.core.api.Assertions.*
 
 import com.kms.katalon.core.testobject.RequestObject
@@ -37,11 +44,11 @@ RequestObject request = WSResponseManager.getInstance().getCurrentRequest()
 ResponseObject response = WSResponseManager.getInstance().getCurrentResponse()
 
 
-
+//Verify status code
 WS.verifyResponseStatusCode(response, 204)
-
 assertThat(response.getStatusCode()).isEqualTo(204)
 
+//Check response status
 WS.verifyElementPropertyValue(response, 'status', &quot;success&quot;)
 
 </verificationScript>

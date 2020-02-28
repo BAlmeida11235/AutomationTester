@@ -37,16 +37,23 @@ RequestObject request = WSResponseManager.getInstance().getCurrentRequest()
 
 ResponseObject response = WSResponseManager.getInstance().getCurrentResponse()
 
-
-
+//Verify status code
 WS.verifyResponseStatusCode(response, 200)
-
 assertThat(response.getStatusCode()).isEqualTo(200)
 
+//Check response status
+WS.verifyElementPropertyValue(response, 'status', &quot;success&quot;)
 
 
-WS.verifyElementPropertyValue(response, 'data[1].employee_name', &quot;Garrett Winters&quot;)
-
+//Make sure List of employees is correct
+for(i = GlobalVariable.employeeList.data[0].id;
+	 i &lt; GlobalVariable.employeeList.size(); i++)
+{
+	WS.verifyElementPropertyValue(response, 'data[i].employee_name', GlobalVariable.employeeList.data[i].name)
+	WS.verifyElementPropertyValue(response, 'data[i].employee_salary', GlobalVariable.employeeList.data[i].salary)
+	WS.verifyElementPropertyValue(response, 'data[i].employee_age', GlobalVariable.employeeList.data[i].age)
+	
+}
 
 
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <TestCaseEntity>
    <description>Test data consistency when creating a new employee</description>
-   <name>CreateEmployeeCase</name>
+   <name>RestApi</name>
    <tag></tag>
    <comment></comment>
    <testCaseGuid>2d9262ee-2493-4707-8132-145b35f33c34</testCaseGuid>

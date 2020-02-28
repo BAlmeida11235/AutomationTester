@@ -15,6 +15,14 @@ import com.kms.katalon.core.webui.keyword.WebUiBuiltInKeywords as WebUI
 import com.kms.katalon.core.windows.keyword.WindowsBuiltinKeywords as Windows
 import internal.GlobalVariable as GlobalVariable
 
-WS.sendRequest(findTestObject('EmployeRestService/CreateEmployee', [('employee') : GlobalVariable.employee, ('employeeList') : GlobalVariable.employeeList
-            , ('employeeName') : '', ('employeeSalary') : '', ('employeeAge') : '']))
+WS.sendRequestAndVerify(findTestObject('EmployeRestService/CreateEmployee', [('employee') : GlobalVariable.employee, ('employeeList') : GlobalVariable.employeeList
+            , ('employeeName') : employeeName, ('employeeSalary') : employeeSalary, ('employeeAge') : employeeAge]))
+
+WS.sendRequestAndVerify(findTestObject('EmployeRestService/GetEmployee', [('employee') : GlobalVariable.employee]))
+
+WS.sendRequestAndVerify(findTestObject('EmployeRestService/ListEmployees'))
+
+WS.sendRequestAndVerify(findTestObject('EmployeRestService/UpdateEmployee'))
+
+WS.sendRequestAndVerify(findTestObject('EmployeRestService/DeleteEmployee', [('employee') : GlobalVariable.employee]))
 

@@ -9,7 +9,7 @@
    <followRedirects>false</followRedirects>
    <httpBody></httpBody>
    <httpBodyContent>{
-  &quot;text&quot;: &quot;{\n\t\&quot;name\&quot;:\&quot;${employeeName}\&quot;,\n  \t\&quot;salary\&quot;:\&quot;${employeeSalary}\&quot;,\n  \t\&quot;age\&quot;:\&quot;${employeeAge}\&quot;\n}&quot;,
+  &quot;text&quot;: &quot;{\n\t\&quot;name\&quot;:\&quot;Bruno\&quot;,\n  \t\&quot;salary\&quot;:\&quot;123\&quot;,\n  \t\&quot;age\&quot;:\&quot;5\&quot;\n}&quot;,
   &quot;contentType&quot;: &quot;application/json&quot;,
   &quot;charset&quot;: &quot;UTF-8&quot;
 }</httpBodyContent>
@@ -71,6 +71,9 @@ import com.kms.katalon.core.webservice.keyword.WSBuiltInKeywords as WS
 import com.kms.katalon.core.webservice.verification.WSResponseManager
 import groovy.json.JsonSlurper
 import internal.GlobalVariable as GlobalVariable
+import java.util.regex.Matcher 
+import java.util.regex.Pattern;
+
 
 RequestObject request = WSResponseManager.getInstance().getCurrentRequest()
 
@@ -80,38 +83,40 @@ ResponseObject response = WSResponseManager.getInstance().getCurrentResponse()
 WS.verifyResponseStatusCode(response, 200)
 assertThat(response.getStatusCode()).isEqualTo(200)
 
+//Check response status
+WS.verifyElementPropertyValue(response, 'status', &quot;success&quot;)
+
 //Parse response Json format
 def slurper = new groovy.json.JsonSlurper()
 responseBody = slurper.parseText(response.getResponseBodyContent())
 GlobalVariable.employee= responseBody
+GlobalVariable.employeeList.add(responseBody)
+
 
 //Test data from the response matches data from the request
 WS.verifyElementPropertyValue(response, 'data.name', GlobalVariable.employee.data.name)
 WS.verifyElementPropertyValue(response, 'data.salary', GlobalVariable.employee.data.salary)
 WS.verifyElementPropertyValue(response, 'data.age', GlobalVariable.employee.data.age)
+WS.verifyElementPropertyValue(response, 'data.id', GlobalVariable.employee.data.id)
 
-//Test for invalid input. Empty, null, special characters
-//WS.verifyElementPropertyValue(response, 'data.name', !null)
-//WS.verifyElementPropertyValue(response, 'data.name', !'')
+//Test for invalid input. Empty, null, special characters, numbers in name, letters in id and salary 
+Pattern letterPattern = Pattern.compile(&quot;[^a-z]&quot;, Pattern.CASE_INSENSITIVE);
+Pattern numberPattern = Pattern.compile(&quot;[0-9]&quot;);
 
-/*
-String[] arrayResponse = [&quot;why&quot;, &quot;hello&quot;, &quot;there&quot;]
-String[] arrayExpect = [&quot;there&quot;, &quot;why&quot;, &quot;hello&quot;]
-assertThat(arrayResponse).containsOnly(&quot;there&quot;, &quot;hello&quot;, &quot;why&quot;)
-assertThat(arrayResponse).containsOnlyElementsOf(Arrays.asList(&quot;why&quot;, &quot;there&quot;, &quot;hello&quot;))
-
-assertThat(arrayResponse).containsExactly(&quot;why&quot;, &quot;hello&quot;, &quot;there&quot;)
-assertThat(arrayResponse).containsExactlyElementsOf(Arrays.asList(&quot;why&quot;, &quot;hello&quot;, &quot;there&quot;))
-
-assertThat(arrayResponse).containsSequence(&quot;why&quot;, &quot;hello&quot;)
-assertThat(arrayResponse).containsSubsequence(&quot;why&quot;, &quot;there&quot;)
-assertThat(arrayResponse).containsAnyOf(&quot;why&quot;, &quot;nothing&quot;, &quot;new&quot;)
-
-assertThat(arrayResponse).contains(&quot;hello&quot;, atIndex(1))
+Matcher lm = letterPattern.matcher();
+Matcher nm = numberPattern.matcher();
 
 
-assertThat(response.getResponseText()).isEqualTo(&quot;Katalon Test Project&quot;)
-*/
+if(!(lm.find(GlobalVariable.employee.data.name))||
+	!(nm.find(GlobalVariable.employee.data.salary))||
+		!(nm.find(GlobalVariable.employee.data.age))||
+{
+	testRunner.fail(&quot;Field values are not valid&quot;)
+}
+
+
+
+
 
 </verificationScript>
    <wsdlAddress></wsdlAddress>
