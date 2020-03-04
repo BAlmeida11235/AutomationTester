@@ -23,7 +23,7 @@
    </httpHeaderProperties>
    <migratedVersion>5.4.1</migratedVersion>
    <restRequestMethod>PUT</restRequestMethod>
-   <restUrl>http://dummy.restapiexample.com/api/v1/update/2</restUrl>
+   <restUrl>http://dummy.restapiexample.com/api/v1/update/${employee.data.id}</restUrl>
    <serviceType>RESTful</serviceType>
    <soapBody></soapBody>
    <soapHeader></soapHeader>
